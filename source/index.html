@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="stylesheets/normalize.css" type="text/stylesheet" rel="stylesheet" />
+    <link href="stylesheets/app.css" type="text/stylesheet" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="options">
+        <label>Map: </label>
+        <select id="map">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <label>Algorithm: </label>
+        <select id="algorithm">
+          <option value="astar">A*</option>
+          <option value="bfs">BFS</option>
+        </select>
+        <button id="start">Start</button>
+      </div>
+
+      <div id="container"></div>
+      <div class="results">
+        <p class="result">Total: <span id="count">0</span></p>
+        <p class="result">Best: <span id="best">0</span></p>
+      </div>
+    </div>
+
+    <script src="vendor/jquery-1.11.1.js"></script>
+    <script src="maps/rawMaps.js"></script>
+    <script src="views/view.js"></script>
+    <script src="models/priorityQueue.js"></script>
+    <script src="models/tile.js"></script>
+    <script src="models/map.js"></script>
+    <script src="algorithms/aStar.js"></script>
+    <script src="algorithms/bfs.js"></script>
+    <script src="algorithms/algorithms.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
