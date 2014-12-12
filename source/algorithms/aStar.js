@@ -1,9 +1,8 @@
 var AStar = (function() {
   var solve = function(map, view) {
-    var frontier = new PriorityQueue();
+    var frontier = new PriorityQueue().add(map.start, 0);
     var cameFrom = {};
     var costSoFar = {};
-    frontier.add(map.start, 0);
     cameFrom[map.start.xy] = null;
     costSoFar[map.start.xy] = 0;
 

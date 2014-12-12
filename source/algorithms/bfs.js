@@ -1,9 +1,8 @@
 var BFS = (function() {
   var solve = function(map, view) {
     var explored = [];
-    var unexplored = [];
+    var unexplored = [map.start];
     var cameFrom = {};
-    unexplored.push(map.start);
     cameFrom[map.start.xy] = null;
 
     while (unexplored.length > 0) {
@@ -13,14 +12,14 @@ var BFS = (function() {
 
       if (current == map.goal) {
         var shortestPath = buildShortestPath(cameFrom, map);
-        view.queueRenderShortestPath(shortestPath);
-        view.$container.dequeue('renderQueue');
+        if (view) view.queueRenderShortestPath(shortestPath);
+        if (view) view.$container.dequeue('renderQueue');
         return true;
       }
 
       if (current.type == 'open') {
         current.type = 'explored';
-        view.queueRender(current);
+        if (view) view.queueRender(current);
       }
 
       var neighbors = current.neighbors();

@@ -10,6 +10,7 @@ PriorityQueue.prototype.add = function(element, priority) {
   } else {
     this.queue.push({ element: element, priority: priority });
   }
+  return this;
 };
 
 PriorityQueue.prototype.pull = function() {
