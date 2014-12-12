@@ -1,5 +1,7 @@
 var App = function(view) {
   this.view = view;
+  this.mode = 'start';
+  this.isSolved = false;
 };
 
 App.prototype.init = function() {
@@ -9,6 +11,8 @@ App.prototype.init = function() {
 };
 
 App.prototype.reset = function() {
+  this.isSolved = false;
+
   var mapNum = $('#map').val();
   this.setAndRenderMap(mapNum);
 
@@ -33,8 +37,18 @@ App.prototype.setStart = function(x, y) {
   this.view.renderMap(this.map);
 };
 
+App.prototype.setGoal = function(x, y) {
+  this.map.setGoal(x, y);
+  this.view.renderMap(this.map);
+};
+
+App.prototype.setMode = function() {
+  this.mode = $('#setMode').val();
+  console.log(this.mode);
+};
+
 App.prototype.solve = function(solver) {
-  solver.solve(this.map, this.view);
+  return solver.solve(this.map, this.view);
 };
 
 var app = new App(new DivsView);

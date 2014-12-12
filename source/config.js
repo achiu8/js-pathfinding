@@ -8,14 +8,22 @@ var Config = {
       app.reset();
     });
 
+    $('body').on('change', '#setMode', function() {
+      app.setMode();
+    });
+
     $('body').on('click', '#start', function() {
-      app.solve(app.algorithm, app.map);
+      app.isSolved = app.solve(app.algorithm, app.map);
     });
 
     $('body').on('click', '.open', function() {
-      app.reset();
       var xy = this.id.split('-');
-      app.setStart(parseInt(xy[0]), parseInt(xy[1]));
+      if (app.isSolved) app.reset();
+      if (app.mode == 'start') {
+        app.setStart(parseInt(xy[0]), parseInt(xy[1]));
+      } else if (app.mode == 'goal') {
+        app.setGoal(parseInt(xy[0]), parseInt(xy[1]));
+      }
     });
   }
 };

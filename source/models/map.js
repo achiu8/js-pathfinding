@@ -49,7 +49,6 @@ Map.prototype.setGoal = function(x, y) {
   if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
     var oldGoal = this.goal;
     this.set(oldGoal.x, oldGoal.y, { value: '.', type: 'open' });
-    this.set(x, y, { value: '*', type: 'goal' });
-    this.goal = tile;
+    this.goal = this.set(x, y, { value: '*', type: 'goal' });
   }
 };
