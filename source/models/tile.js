@@ -1,9 +1,9 @@
 var Tile = function(value, x, y, map) {
-  this.value = value;
+  this.map = map;
   this.x = x;
   this.y = y;
   this.xy = this.x + '-' + this.y;
-  this.map = map;
+  this.value = value;
   this.type = this.type || this.setType();
 };
 

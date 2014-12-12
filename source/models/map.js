@@ -27,3 +27,29 @@ Map.prototype.get = function(x, y) {
     return this.tiles[index];
   }
 };
+
+Map.prototype.set = function(x, y, props) {
+  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+    var tile = this.get(x, y);
+    tile.value = props.value || tile.value;
+    tile.type = props.type || tile.type;
+    return tile;
+  }
+};
+
+Map.prototype.setStart = function(x, y) {
+  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+    var oldStart = this.start;
+    this.set(oldStart.x, oldStart.y, { value: '.', type: 'open' });
+    this.start = this.set(x, y, { value: 'o', type: 'start' });
+  }
+};
+
+Map.prototype.setGoal = function(x, y) {
+  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+    var oldGoal = this.goal;
+    this.set(oldGoal.x, oldGoal.y, { value: '.', type: 'open' });
+    this.set(x, y, { value: '*', type: 'goal' });
+    this.goal = tile;
+  }
+};
