@@ -49,6 +49,11 @@ App.prototype.setGoal = function(x, y) {
   this.view.renderMap(this.map);
 };
 
+App.prototype.setWall = function(x, y) {
+  this.map.set(x, y, { value: '#', type: 'wall' });
+  this.view.renderMap(this.map);
+};
+
 App.prototype.setMode = function() {
   this.mode = $('#setMode').val();
   console.log(this.mode);
