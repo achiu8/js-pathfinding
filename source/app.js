@@ -2,6 +2,7 @@ var App = function(view) {
   this.view = view;
   this.mode = 'start';
   this.isSolved = false;
+  this.setOptions();
 };
 
 App.prototype.init = function() {
@@ -10,7 +11,7 @@ App.prototype.init = function() {
   this.setAlgorithm('astar');
 };
 
-App.prototype.reset = function() {
+App.prototype.resetAll = function() {
   this.isSolved = false;
 
   var mapNum = $('#map').val();

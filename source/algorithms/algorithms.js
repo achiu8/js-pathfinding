@@ -1,4 +1,5 @@
 var algorithms = {
   astar: AStar,
-  bfs: BFS
+  bfs: BFS,
+  dfs: DFS
 };
