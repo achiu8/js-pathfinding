@@ -52,3 +52,10 @@ Map.prototype.setGoal = function(x, y) {
     this.goal = this.set(x, y, { value: '*', type: 'goal' });
   }
 };
+
+Map.prototype.resetExplored = function() {
+  for (var i = 0; i < this.tiles.length; i++) {
+    var tile = this.tiles[i];
+    if (tile.type == 'explored') tile.type = 'open';
+  }
+};

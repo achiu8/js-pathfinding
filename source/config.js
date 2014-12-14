@@ -1,11 +1,11 @@
 var Config = {
   bindListeners: function(app) {
     $('body').on('change', '#map', function() {
-      app.reset();
+      app.resetAll();
     });
 
     $('body').on('change', '#algorithm', function() {
-      app.reset();
+      app.resetAll();
     });
 
     $('body').on('change', '#setMode', function() {
@@ -18,11 +18,13 @@ var Config = {
 
     $('body').on('click', '.open', function() {
       var xy = this.id.split('-');
-      if (app.isSolved) app.reset();
+      if (app.isSolved) app.resetMap();
       if (app.mode == 'start') {
         app.setStart(parseInt(xy[0]), parseInt(xy[1]));
       } else if (app.mode == 'goal') {
         app.setGoal(parseInt(xy[0]), parseInt(xy[1]));
+      } else if (app.mode == 'wall') {
+        app.setWall(parseInt(xy[0]), parseInt(xy[1]));
       }
     });
   }

@@ -24,6 +24,12 @@ App.prototype.resetAll = function() {
   $('#best').html('0');
 };
 
+App.prototype.resetMap = function() {
+  this.isSolved = false;
+  this.map.resetExplored();
+  this.view.renderMap(this.map);
+};
+
 App.prototype.setAlgorithm = function(algorithm) {
   this.algorithm = algorithms[algorithm];
 };
