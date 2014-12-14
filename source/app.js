@@ -56,10 +56,26 @@ App.prototype.setWall = function(x, y) {
 
 App.prototype.setMode = function() {
   this.mode = $('#setMode').val();
-  console.log(this.mode);
+};
+
+App.prototype.setOptions = function() {
+  var mapOptionTemplate = '<option value="{{mapNum}}">{{mapNum}}</option>';
+  var maps = Object.keys(rawMaps);
+  for (var i = 0; i < maps.length; i++) {
+    var mapOption = mapOptionTemplate.replace(/{{mapNum}}/g, maps[i]);
+    $('#map').append(mapOption);
+  }
+
+  var algoOptionTemplate = '<option value="{{algoNum}}">{{algoNum}}</option>';
+  var algos = Object.keys(algorithms);
+  for (var i = 0; i < algos.length; i++) {
+    var algoOption = algoOptionTemplate.replace(/{{algoNum}}/g, algos[i]);
+    $('#algorithm').append(algoOption);
+  }
 };
 
 App.prototype.solve = function(solver) {
+  if (this.isSolved) this.resetMap();
   return solver.solve(this.map, this.view);
 };
 
