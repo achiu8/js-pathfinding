@@ -22,14 +22,14 @@ Map.prototype.processRawMap = function(rawMap) {
 };
 
 Map.prototype.get = function(x, y) {
-  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+  if (this.isValid(x, y)) {
     var index = y * this.width + x;
     return this.tiles[index];
   }
 };
 
 Map.prototype.set = function(x, y, props) {
-  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+  if (this.isValid(x, y)) {
     var tile = this.get(x, y);
     tile.value = props.value || tile.value;
     tile.type = props.type || tile.type;
@@ -38,7 +38,7 @@ Map.prototype.set = function(x, y, props) {
 };
 
 Map.prototype.setStart = function(x, y) {
-  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+  if (this.isValid(x, y)) {
     var oldStart = this.start;
     this.set(oldStart.x, oldStart.y, { value: '.', type: 'open' });
     this.start = this.set(x, y, { value: 'o', type: 'start' });
@@ -46,7 +46,7 @@ Map.prototype.setStart = function(x, y) {
 };
 
 Map.prototype.setGoal = function(x, y) {
-  if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+  if (this.isValid(x, y)) {
     var oldGoal = this.goal;
     this.set(oldGoal.x, oldGoal.y, { value: '.', type: 'open' });
     this.goal = this.set(x, y, { value: '*', type: 'goal' });
@@ -59,3 +59,8 @@ Map.prototype.resetExplored = function() {
     if (tile.type == 'explored') tile.type = 'open';
   }
 };
+
+Map.prototype.isValid = function(x, y) {
+  return x >= 0 && x < this.width && y >= 0 && y < this.height;
+};
+
