@@ -87,7 +87,9 @@ App.prototype.setOptions = function() {
 
 App.prototype.solve = function(solver) {
   if (this.isSolved) this.resetMap();
-  return solver.solve(this.map, this.view);
+  var solver = new solver(this.map, this.view);
+  solver.solve();
+  this.isSolved = true;
 };
 
 var app = new App(new DivsView);
