@@ -88,7 +88,7 @@ App.prototype.setOptions = function() {
 App.prototype.solve = function(solver) {
   if (this.isSolved) this.resetMap();
   var solver = new solver(this.map, this.view);
-  solver.solve();
+  this.loop = setInterval(solver.solve.bind(solver), 10);
   this.isSolved = true;
 };
 

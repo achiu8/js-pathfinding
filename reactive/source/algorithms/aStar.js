@@ -6,22 +6,22 @@ function AStar(map, view) {
     'water': 2,
     'elevation': 3
   };
-}
-
-AStar.prototype.solve = function() {
   this.frontier = new PriorityQueue().add(this.map.start, 0);
   this.cameFrom = {};
   this.costSoFar = {};
   this.cameFrom[this.map.start.xy] = null;
   this.costSoFar[this.map.start.xy] = 0;
+}
 
-  while (!this.frontier.isEmpty()) {
+AStar.prototype.solve = function() {
+  if (!this.frontier.isEmpty()) {
     var current = this.frontier.pull();
 
     if (current == this.map.goal) {
       var shortestPath = this.buildShortestPath(this.cameFrom, this.map);
-      // if (view) view.queueRenderShortestPath(shortestPath);
-      // if (view) view.$container.dequeue('renderQueue');
+      if (this.view) this.view.queueRenderShortestPath(shortestPath);
+      if (this.view) this.view.$container.dequeue('renderQueue');
+      clearInterval(app.loop);
       return true;
     }
 
