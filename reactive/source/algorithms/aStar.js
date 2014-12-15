@@ -19,9 +19,7 @@ AStar.prototype.solve = function() {
 
     if (current == this.map.goal) {
       var shortestPath = this.buildShortestPath(this.cameFrom, this.map);
-      if (this.view) this.view.queueRenderShortestPath(shortestPath);
-      if (this.view) this.view.$container.dequeue('renderQueue');
-      clearInterval(app.loop);
+      $(this.map).trigger('solved', [shortestPath]);
       return true;
     }
 

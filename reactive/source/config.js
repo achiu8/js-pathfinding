@@ -36,13 +36,21 @@ var Config = {
   addObservers: function(app) {
     this.extend(new Subject(), app.map);
     $(app.map).on('update', function(e, current) {
-      this.notify(current);
+      this.notify('update', current);
+    });
+    $(app.map).on('solved', function(e, path) {
+      this.notify('solved', path);
+      clearInterval(app.loop);
     });
 
     this.extend(new Observer(), app.view);
-    app.view.update = function(tile) {
-      this.renderExplored(tile);
-      this.updateCount();
+    app.view.update = function(type, context) {
+      if (type == 'update') {
+        this.renderExplored(context);
+        this.updateCount();
+      } else if (type == 'solved') {
+        this.renderShortestPath(context);
+      }
     };
     app.map.addObserver(app.view);
   },

@@ -24,19 +24,18 @@ var DivsView = function() {
     $tile.addClass('explored');
   };
 
+  this.renderShortestPath = function(path) {
+    $('.explored').addClass('open');
+    $('.explored').removeClass('explored');
+    for (var i = 0; i < path.length; i++) {
+      $('#' + path[i]).addClass('explored');
+    }
+    $('#best').html(path.length);
+  };
+
   this.updateCount = function() {
     var $count = $('#count');
     $count.html(parseInt($count.html()) + 1);
   };
 
-  this.queueRenderShortestPath = function(path) {
-    this.$container.queue('renderQueue', function() {
-      $('.explored').addClass('open');
-      $('.explored').removeClass('explored');
-      for (var i = 0; i < path.length; i++) {
-        $('#' + path[i]).addClass('explored');
-      }
-      $('#best').html(path.length);
-    }).delay(10, 'renderQueue');
-  };
 };

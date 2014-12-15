@@ -10,9 +10,9 @@ Subject.prototype.removeObserver = function(observer) {
   this.observers.removeAt(this.observers.indexOf(observer));
 };
 
-Subject.prototype.notify = function(context) {
+Subject.prototype.notify = function(type, context) {
   var observerCount = this.observers.count();
   for (var i = 0; i < observerCount; i++) {
-    this.observers.get(i).update(context);
+    this.observers.get(i).update(type, context);
   }
 };

@@ -23,6 +23,8 @@ App.prototype.resetAll = function() {
 
   $('#count').html('0');
   $('#best').html('0');
+
+  Config.addObservers(this);
 };
 
 App.prototype.resetMap = function() {
