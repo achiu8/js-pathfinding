@@ -1,53 +1,52 @@
-var Dijkstra = (function() {
-  var solve = function(map, view) {
-    var frontier = new PriorityQueue().add(map.start, 0);
-    var cameFrom = {};
-    var costSoFar = {};
-    cameFrom[map.start.xy] = null;
-    costSoFar[map.start.xy] = 0;
+function Dijkstra(map, view) {
+  this.map = map;
+  this.view = view;
+  this.costs = {
+    'open': 1,
+    'water': 2,
+    'elevation': 3
+  };
+  this.frontier = new PriorityQueue().add(this.map.start, 0);
+  this.cameFrom = {};
+  this.costSoFar = {};
+  this.cameFrom[this.map.start.xy] = null;
+  this.costSoFar[this.map.start.xy] = 0;
+}
 
-    while (!frontier.isEmpty()) {
-      var current = frontier.pull();
+Dijkstra.prototype.solve = function() {
+  if (!this.frontier.isEmpty()) {
+    var current = this.frontier.pull();
 
-      if (current == map.goal) {
-        var shortestPath = buildShortestPath(cameFrom, map);
-        if (view) view.queueRenderShortestPath(shortestPath);
-        if (view) view.$container.dequeue('renderQueue');
-        return true;
-      }
-
-      if (current.type == 'open') {
-        current.type = 'explored';
-        if (view) view.queueRender(current);
-      }
-
-      var neighbors = current.neighbors();
-      for (var i = 0; i < neighbors.length; i++) {
-        var newCost = costSoFar[current.xy] + 1;
-        var neighbor = neighbors[i];
-        if (!costSoFar[neighbor.xy] || newCost < costSoFar[neighbor.xy]) {
-          costSoFar[neighbor.xy] = newCost;
-          priority = -newCost;
-          cameFrom[neighbor.xy] = current.xy;
-          frontier.add(neighbor, priority);
-        }
-      }
+    if (current == this.map.goal) {
+      var shortestPath = this.buildShortestPath(this.cameFrom, this.map);
+      $(this.map).trigger('solved', [shortestPath]);
+      return true;
     }
 
-    return false;
-  };
+    if (current.type == 'open') $(this.map).trigger('update', [current]);
 
-  var buildShortestPath = function(path, map) {
-    var current = map.goal.xy;
-    var shortestPath = [];
-    while (current != map.start.xy) {
-      current = path[current];
-      if (current != map.start.xy) shortestPath.push(current);
+    var neighbors = current.neighbors();
+    for (var i = 0; i < neighbors.length; i++) {
+      var neighbor = neighbors[i];
+      var newCost = this.costSoFar[current.xy] + this.costs[neighbor.type];
+      if (!this.costSoFar[neighbor.xy] || newCost < this.costSoFar[neighbor.xy]) {
+        this.costSoFar[neighbor.xy] = newCost;
+        priority = -newCost;
+        this.cameFrom[neighbor.xy] = current.xy;
+        this.frontier.add(neighbor, priority);
+      }
     }
-    return shortestPath;
-  };
+  }
 
-  return {
-    solve: solve
-  };
-})();
+  return false;
+};
+
+Dijkstra.prototype.buildShortestPath = function(path, map) {
+  var current = map.goal.xy;
+  var shortestPath = [];
+  while (current != map.start.xy) {
+    current = path[current];
+    if (current != map.start.xy) shortestPath.push(current);
+  }
+  return shortestPath;
+};

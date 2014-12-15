@@ -1,53 +1,47 @@
-var Manhattan = (function() {
-  var solve = function(map, view) {
-    var frontier = new PriorityQueue().add(map.start, 0);
-    var cameFrom = {};
-    cameFrom[map.start.xy] = null;
+function Manhattan(map, view) {
+  this.map = map;
+  this.view = view;
+  this.frontier = new PriorityQueue().add(map.start, 0);
+  this.cameFrom = {};
+  this.cameFrom[map.start.xy] = null;
+}
 
-    while (!frontier.isEmpty()) {
-      var current = frontier.pull();
+Manhattan.prototype.solve = function() {
+  if (!this.frontier.isEmpty()) {
+    var current = this.frontier.pull();
 
-      if (current == map.goal) {
-        var shortestPath = buildShortestPath(cameFrom, map);
-        if (view) view.queueRenderShortestPath(shortestPath);
-        if (view) view.$container.dequeue('renderQueue');
-        return true;
-      }
-
-      if (current.type == 'open') {
-        current.type = 'explored';
-        if (view) view.queueRender(current);
-      }
-
-      var neighbors = current.neighbors();
-      for (var i = 0; i < neighbors.length; i++) {
-        var neighbor = neighbors[i];
-        if (!cameFrom[neighbor.xy]) {
-          priority = -manhattanDistance(neighbor, map.goal);
-          cameFrom[neighbor.xy] = current.xy;
-          frontier.add(neighbor, priority);
-        }
-      }
+    if (current == this.map.goal) {
+      var shortestPath = this.buildShortestPath(this.cameFrom, this.map);
+      $(this.map).trigger('solved', [shortestPath]);
+      return true;
     }
 
-    return false;
-  };
+    if (current.type == 'open') $(this.map).trigger('update', [current]);
 
-  var buildShortestPath = function(path, map) {
-    var current = map.goal.xy;
-    var shortestPath = [];
-    while (current != map.start.xy) {
-      current = path[current];
-      if (current != map.start.xy) shortestPath.push(current);
+    var neighbors = current.neighbors();
+    for (var i = 0; i < neighbors.length; i++) {
+      var neighbor = neighbors[i];
+      if (!this.cameFrom[neighbor.xy]) {
+        priority = -this.manhattanDistance(neighbor, this.map.goal);
+        this.cameFrom[neighbor.xy] = current.xy;
+        this.frontier.add(neighbor, priority);
+      }
     }
-    return shortestPath;
-  };
+  }
 
-  var manhattanDistance = function(neighbor, goal) {
-    return Math.abs(neighbor.x - goal.x) + Math.abs(neighbor.y - goal.y);
-  };
+  return false;
+};
 
-  return {
-    solve: solve
-  };
-})();
+Manhattan.prototype.buildShortestPath = function(path, map) {
+  var current = map.goal.xy;
+  var shortestPath = [];
+  while (current != map.start.xy) {
+    current = path[current];
+    if (current != map.start.xy) shortestPath.push(current);
+  }
+  return shortestPath;
+};
+
+Manhattan.prototype.manhattanDistance = function(neighbor, goal) {
+  return Math.abs(neighbor.x - goal.x) + Math.abs(neighbor.y - goal.y);
+};
