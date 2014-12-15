@@ -13,7 +13,7 @@ var Config = {
     });
 
     $('body').on('click', '#start', function() {
-      app.isSolved = app.solve(app.algorithm, app.map);
+      app.solve(app.algorithm, app.map);
     });
 
     $('body').on('click', '.open', function() {
@@ -42,15 +42,9 @@ var Config = {
     this.extend(new Observer(), app.view);
     app.view.update = function(tile) {
       this.renderExplored(tile);
+      this.updateCount();
     };
     app.map.addObserver(app.view);
-
-    var $count = $('#count');
-    this.extend(new Observer(), $count);
-    $count.update = function() {
-      $(this).html(parseInt($(this).html()) + 1);
-    };
-    app.map.addObserver($count);
   },
 
   extend: function(extension, object) {

@@ -24,6 +24,11 @@ var DivsView = function() {
     $tile.addClass('explored');
   };
 
+  this.updateCount = function() {
+    var $count = $('#count');
+    $count.html(parseInt($count.html()) + 1);
+  };
+
   this.queueRenderShortestPath = function(path) {
     this.$container.queue('renderQueue', function() {
       $('.explored').addClass('open');
