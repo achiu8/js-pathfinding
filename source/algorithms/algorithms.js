@@ -1,5 +1,7 @@
 var algorithms = {
   astar: AStar,
   bfs: BFS,
-  dfs: DFS
+  dfs: DFS,
+  dijkstra: Dijkstra,
+  manhattan: Manhattan
 };
