@@ -18,6 +18,12 @@ var DivsView = function() {
     }
   };
 
+  this.renderExplored = function(tile) {
+    var $tile = $('#' + tile.xy);
+    $tile.removeClass('open');
+    $tile.addClass('explored');
+  };
+
   this.queueRenderShortestPath = function(path) {
     this.$container.queue('renderQueue', function() {
       $('.explored').addClass('open');
@@ -26,15 +32,6 @@ var DivsView = function() {
         $('#' + path[i]).addClass('explored');
       }
       $('#best').html(path.length);
-    }).delay(10, 'renderQueue');
-  };
-
-  this.queueRender = function(tile) {
-    this.$container.queue('renderQueue', function() {
-      $('#' + tile.xy).removeClass('open');
-      $('#' + tile.xy).addClass('explored');
-      $('#count').html(parseInt($('#count').html()) + 1);
-      $(this).dequeue('renderQueue');
     }).delay(10, 'renderQueue');
   };
 };

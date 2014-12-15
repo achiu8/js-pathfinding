@@ -11,8 +11,8 @@ var AStar = (function() {
 
       if (current == map.goal) {
         var shortestPath = buildShortestPath(cameFrom, map);
-        if (view) view.queueRenderShortestPath(shortestPath);
-        if (view) view.$container.dequeue('renderQueue');
+        // if (view) view.queueRenderShortestPath(shortestPath);
+        // if (view) view.$container.dequeue('renderQueue');
         return true;
       }
 

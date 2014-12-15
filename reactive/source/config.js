@@ -39,19 +39,18 @@ var Config = {
       this.notify(current);
     });
 
-    var $mapView = $('#container');
-    this.extend(new Observer(), $mapView);
-    $mapView.update = function(tile) {
-      var $tile = $(this).find('#' + tile.xy);
-      $tile.removeClass('open');
-      $tile.removeClass('explored');
+    this.extend(new Observer(), app.view);
+    app.view.update = function(tile) {
+      this.renderExplored(tile);
     };
+    app.map.addObserver(app.view);
 
     var $count = $('#count');
     this.extend(new Observer(), $count);
     $count.update = function() {
-      $(this).html(parseInt($(this).html())++);
+      $(this).html(parseInt($(this).html()) + 1);
     };
+    app.map.addObserver($count);
   },
 
   extend: function(extension, object) {
