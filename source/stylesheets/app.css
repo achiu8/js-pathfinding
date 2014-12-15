@@ -33,7 +33,15 @@ select {
 }
 
 .wall {
+  background-color: #888888;
+}
+
+.elevation {
   background-color: #ccc;
+}
+
+.water {
+  background-color: #0099cc;
 }
 
 .explored {

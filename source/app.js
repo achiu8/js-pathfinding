@@ -54,6 +54,16 @@ App.prototype.setWall = function(x, y) {
   this.view.renderMap(this.map);
 };
 
+App.prototype.setElevation = function(x, y) {
+  this.map.set(x, y, { value: '^', type: 'elevation' });
+  this.view.renderMap(this.map);
+};
+
+App.prototype.setWater = function(x, y) {
+  this.map.set(x, y, { value: 'w', type: 'water' });
+  this.view.renderMap(this.map);
+};
+
 App.prototype.setMode = function() {
   this.mode = $('#setMode').val();
 };

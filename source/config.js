@@ -25,6 +25,10 @@ var Config = {
         app.setGoal(parseInt(xy[0]), parseInt(xy[1]));
       } else if (app.mode == 'wall') {
         app.setWall(parseInt(xy[0]), parseInt(xy[1]));
+      } else if (app.mode == 'elevation') {
+        app.setElevation(parseInt(xy[0]), parseInt(xy[1]));
+      } else if (app.mode == 'water') {
+        app.setWater(parseInt(xy[0]), parseInt(xy[1]));
       }
     });
   }

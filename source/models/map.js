@@ -2,6 +2,8 @@ var Map = function(rawMap) {
   this.startMark = rawMap.start;
   this.goalMark = rawMap.goal;
   this.openMark = rawMap.open;
+  this.elevationMark = rawMap.elevation;
+  this.waterMark = rawMap.water;
   this.tiles = [];
   this.processRawMap(rawMap.rawMap);
 };

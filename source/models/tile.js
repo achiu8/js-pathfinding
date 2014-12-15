@@ -43,6 +43,10 @@ Tile.prototype.setType = function() {
     return 'goal';
   } else if (this.value == this.map.openMark) {
     return 'open';
+  } else if (this.value == this.map.elevationMark) {
+    return 'elevation';
+  } else if (this.value == this.map.waterMark) {
+    return 'water';
   } else {
     return 'wall';
   }

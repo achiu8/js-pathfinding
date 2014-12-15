@@ -23,8 +23,8 @@ var AStar = (function() {
 
       var neighbors = current.neighbors();
       for (var i = 0; i < neighbors.length; i++) {
-        var newCost = costSoFar[current.xy] + 1;
         var neighbor = neighbors[i];
+        var newCost = costSoFar[current.xy] + costs[neighbor.type];
         if (!costSoFar[neighbor.xy] || newCost < costSoFar[neighbor.xy]) {
           costSoFar[neighbor.xy] = newCost;
           priority = -(newCost + manhattanDistance(neighbor, map.goal));
@@ -49,6 +49,12 @@ var AStar = (function() {
 
   var manhattanDistance = function(neighbor, goal) {
     return Math.abs(neighbor.x - goal.x) + Math.abs(neighbor.y - goal.y);
+  };
+
+  var costs = {
+    'open': 1,
+    'water': 2,
+    'elevation': 3
   };
 
   return {
