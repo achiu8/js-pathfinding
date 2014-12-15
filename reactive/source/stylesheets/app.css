@@ -1,0 +1,57 @@
+.container {
+  padding: 25px;
+}
+
+#options {
+  margin-bottom: 25px;
+}
+
+select {
+  margin-bottom: 10px;
+}
+
+.row {
+  height: 20px;
+}
+
+.tile {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.start {
+  background-color: #005200;
+}
+
+.goal {
+  background-color: #cc3300;
+}
+
+.open {
+  background-color: #fff;
+}
+
+.wall {
+  background-color: #888888;
+}
+
+.elevation {
+  background-color: #ccc;
+}
+
+.water {
+  background-color: #0099cc;
+}
+
+.explored {
+  background-color: #008d00;
+}
+
+.results {
+  margin-top: 25px;
+}
+
+.result {
+  margin: 0;
+}
